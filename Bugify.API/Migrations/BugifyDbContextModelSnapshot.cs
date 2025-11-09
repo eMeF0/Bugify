@@ -48,7 +48,7 @@ namespace Bugify.API.Migrations
 
                     b.HasIndex("ProgressId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("Bugify.API.Models.Domain.TaskProgress", b =>
@@ -63,7 +63,7 @@ namespace Bugify.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskProgresses");
+                    b.ToTable("TaskProgresses", (string)null);
 
                     b.HasData(
                         new

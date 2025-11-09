@@ -3,6 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpClient("Bugify.Api", c =>
+{
+    c.BaseAddress = new Uri("https://localhost:7148/api/Task");
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

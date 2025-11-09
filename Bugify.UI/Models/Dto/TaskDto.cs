@@ -1,6 +1,4 @@
-﻿using Bugify.API.Models.Domain;
-
-namespace Bugify.API.Models.DTO
+﻿namespace Bugify.UI.Models.Dto
 {
     public class TaskDto
     {
@@ -9,8 +7,5 @@ namespace Bugify.API.Models.DTO
         public string? Description { get; set; }
         public DateTime? DueDate { get; set; }
         public Guid ProgressId { get; set; }
-        
-
-
     }
 }
