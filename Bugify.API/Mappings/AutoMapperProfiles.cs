@@ -15,6 +15,9 @@ namespace Bugify.API.Mappings
             CreateMap<CreateTaskDto, AddTask>().ReverseMap();
             CreateMap<AddTask, TaskDto>().ReverseMap();
             CreateMap<UpdateTaskRequestDto, AddTask>().ReverseMap();
+            CreateMap<AddTask, TaskDto>().
+                ForMember(x => x.ProgressName, 
+                    c => c.MapFrom(s => s.Progress.Name));
 
         }
     }

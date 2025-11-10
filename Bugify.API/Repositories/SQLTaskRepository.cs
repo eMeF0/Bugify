@@ -21,12 +21,18 @@ namespace Bugify.API.Repositories
 
         public async Task<List<AddTask>> GetAllTasksAsync()
         {
-            return await _dbContext.Tasks.ToListAsync();
+            return await _dbContext.Tasks
+                .AsNoTracking()
+                .Include(x => x.Progress)
+                .ToListAsync();
         }
 
         public async Task<AddTask?> GetTaskByIdAsync(Guid id)
         {
-            return await _dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Tasks
+                .AsNoTracking()
+                .Include(x => x.Progress)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<AddTask?> UpdateAsync(Guid id, AddTask task)

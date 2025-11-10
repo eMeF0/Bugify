@@ -6,7 +6,7 @@
 @{
 }
 
-<h1 class='mt-3'>Regions Index View</h1>
+<h1 class='mt-3'>Tasks</h1>
 
 <div class="d-flex justify-content-end">
     <a class ="btn btn-secondary" asp-controller="Task" asp-action="Create"> Add Task</a>
@@ -29,6 +29,7 @@
             <td>@task.Description</td>
             <td>@task.DueDate</td>
             <td>@task.ProgressId</td>
+            <td>@task.ProgressName</td>
             <td>
                 <a asp-controller="Task" asp-action="Edit" asp-route-id="@task.Id" class="btn btn-light">Edit</a>
             </td>
