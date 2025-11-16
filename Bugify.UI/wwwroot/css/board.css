@@ -1,0 +1,93 @@
+﻿.board {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.column {
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.column-cancelled {
+    background-color: #FECACA;
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.column-completed {
+    background-color: #BBF7D0;
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.column-notstarted {
+    background-color: #E5E7EB;
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.column-inprogress {
+    background-color: #FEE2B3;
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.column-onhold {
+    background-color: #DDD6FE;
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.column-title {
+    color: #111827;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    width: 280px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.card {
+    background-color: #F9FAFB;
+    color: #111827;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform .1s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    background-color: aquamarine;
+}

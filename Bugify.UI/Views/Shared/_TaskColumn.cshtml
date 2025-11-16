@@ -1,0 +1,18 @@
+﻿@model Bugify.UI.Models.TaskColumnViewModel
+
+@{
+    var cardType = Model.Name == "NotStarted" ? "column-notstarted" :
+                   Model.Name == "InProgress" ? "column-inprogress" :
+                   Model.Name == "Completed" ? "column-completed" :
+                   Model.Name == "OnHold" ? "column-onhold" :
+                   Model.Name == "Cancelled" ? "column-cancelled" : "";
+}
+
+<div class="@cardType">
+    <div class="column-title">@Model.Name</div>
+    
+    @foreach (var task in Model.Tasks)
+    {
+        @Html.Partial("_TaskCard", task)
+    }
+</div>

@@ -14,14 +14,27 @@
         <input type="text" class="form-control" asp-for="Description"/>
     </div>
     <div class="mt-3">
-        <label class="form-label">DueDate</label>
-        <input type="datetime" class="form-control" asp-for="DueDate"/>
+        <label asp-for="DueDate" class="form-label"></label>
+        <input asp-for="DueDate" class="form-control" type="date"/>
     </div>
     <div class="mt-3">
-        <label class="form-label">Progress</label>
-        <input type="string" class="form-control" asp-for="ProgressId"/>
+        <label asp-for="ProgressId" class="form-label"></label>
+        <select asp-for="ProgressId" class="form-control">
+            <option value="">Select status</option>
+            <option value="759c64cb-9639-4218-bd6f-e68718429075">NotStarted</option>
+            <option value="915ea79b-f8fa-4f1a-bf02-e9d73faf14a6">InProgress</option>
+            <option value="852a80bb-a5d1-4ebd-8959-c115a0ddee68">Completed</option>
+            <option value="c99a883d-51e3-4738-9ee6-c6ad53d73b37">OnHold</option>
+            <option value="86704552-8451-4916-8494-b0dfd3490f44">Cancelled</option>
+        </select>
+        <span asp-validation-for="ProgressId" class="text-danger"></span>
     </div>
+    
+
     <div class="mt-3">
         <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+    <div class="mt-3">
+        <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
     </div>
 </form>
