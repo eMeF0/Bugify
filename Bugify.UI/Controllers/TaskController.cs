@@ -8,6 +8,11 @@ namespace Bugify.UI.Controllers
 {
     public class TaskController : Controller
     {
+        public class ValidationErrorResponse
+        {
+            public string? Message { get; set; }
+            public Dictionary<string, string[]>? Errors { get; set; }
+        }
         private readonly IHttpClientFactory _httpClientFactory;
 
         public TaskController(IHttpClientFactory httpClientFactory)
@@ -111,25 +116,83 @@ namespace Bugify.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateTaskViewModel createTaskDto)
         {
-            var client = _httpClientFactory.CreateClient();
 
-            var httpRequest = new HttpRequestMessage()
+            if (!ModelState.IsValid)
             {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://localhost:7148/api/Task"),
-                Content = new StringContent(JsonSerializer.Serialize(createTaskDto), Encoding.UTF8, "application/json")
-            };
-
-            var httpResponse = await client.SendAsync(httpRequest);
-            httpResponse.EnsureSuccessStatusCode();
-            var response = await httpResponse.Content.ReadFromJsonAsync<TaskDto>();
-
-            if (response is not null)
-            {
-                return RedirectToAction("Index", "Task");
+                return View(createTaskDto);
             }
 
-            return View();
+
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+
+                var httpRequest = new HttpRequestMessage()
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri("https://localhost:7148/api/Task"),
+                    Content = new StringContent(JsonSerializer.Serialize(createTaskDto), Encoding.UTF8, "application/json")
+                };
+
+                var httpResponse = await client.SendAsync(httpRequest);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    var response = await httpResponse.Content.ReadFromJsonAsync<TaskDto>();
+                    if (response is not null)
+                    {
+                        return RedirectToAction("Index", "Task");
+                    }
+
+                    ModelState.AddModelError(string.Empty, "Error from API");
+                    return View(createTaskDto);
+                }
+
+                var errorContent = await httpResponse.Content.ReadAsStringAsync();
+                try
+                {
+                    var validation = JsonSerializer.Deserialize<ValidationErrorResponse>(errorContent,
+                        new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        });
+                    if (validation?.Errors is not null && validation.Errors.Any())
+                    {
+                        foreach (var kvp in validation.Errors)
+                        {
+                            var fieldName = kvp.Key;
+                            var errorMessages = kvp.Value;
+                            foreach (var errorMessage in errorMessages)
+                            {
+                                ModelState.AddModelError(fieldName, errorMessage);
+                            }
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(validation.Message))
+                        {
+                            ModelState.AddModelError(string.Empty, validation.Message);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid input, check it again!");
+                    }
+                }
+                catch
+                {
+                    ModelState.AddModelError(string.Empty, "Validation error occurred on the API side!");
+                    ModelState.AddModelError(string.Empty, errorContent);
+                }
+
+                return View(createTaskDto);
+
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "An unexpected error on the client side! Please try again later!");
+                return View(createTaskDto);
+
+            }
         }
 
         [HttpGet]

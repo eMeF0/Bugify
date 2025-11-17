@@ -5,17 +5,20 @@
 
 <h1 class='mt-3'></h1>
 <form method="post">
-    <div class="mt-3">
+    <div class="mt-3" asp-validation-summary="All">
         <label class="form-label">Title</label>
         <input type="text" class="form-control" asp-for="Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="mt-3">
         <label class="form-label">Description</label>
         <input type="text" class="form-control" asp-for="Description"/>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="mt-3">
         <label asp-for="DueDate" class="form-label"></label>
         <input asp-for="DueDate" class="form-control" type="date"/>
+        <span asp-validation-for="DueDate" class="text-danger"></span>
     </div>
     <div class="mt-3">
         <label asp-for="ProgressId" class="form-label"></label>
@@ -29,7 +32,7 @@
         </select>
         <span asp-validation-for="ProgressId" class="text-danger"></span>
     </div>
-    
+
 
     <div class="mt-3">
         <button type="submit" class="btn btn-primary">Create</button>
