@@ -1,4 +1,4 @@
-# Bugify – Task Manager & Bug Tracker
+# Bugify – Task Manager 
 
 **Bugify** is a Task Manager application built with **ASP.NET Core**.  
 The project is divided into:
